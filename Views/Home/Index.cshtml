@@ -1,0 +1,250 @@
+@using Nop.Core.Domain.Seo
+@inject SeoSettings seoSettings
+
+@{
+    Layout = "_ColumnsOne";
+
+    //title
+    if (!string.IsNullOrEmpty(seoSettings.HomepageTitle))
+    {
+        NopHtml.AddTitleParts(seoSettings.HomepageTitle);
+    }
+
+    //meta
+    if (!string.IsNullOrEmpty(seoSettings.HomepageDescription))
+    {
+        NopHtml.AddMetaDescriptionParts(seoSettings.HomepageDescription);
+    }
+
+    //page class
+    NopHtml.AppendPageCssClassParts("html-home-page");
+}
+
+
+@*  <div class="page-body">
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomepageTop })
+        @await Component.InvokeAsync("TopicBlock", new { systemName = "HomepageText" })
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomepageBeforeCategories })
+        @await Component.InvokeAsync("HomepageCategories")
+
+
+
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomepageBeforeBestSellers })
+        @await Component.InvokeAsync("HomepageBestSellers")
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomepageBeforeNews })
+        @await Component.InvokeAsync("HomepageNews")
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomepageBeforePoll })
+        @await Component.InvokeAsync("HomepagePolls")
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomepageBottom })
+    </div>*@
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="page-body">
+
+
+
+
+
+
+
+
+    <!-- Modal -->
+    <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="w-100 pt-1 mb-5 text-right">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="" method="get" class="modal-content modal-body border-0 p-0">
+                <div class="input-group mb-2">
+                    <input type="text" class="form-control" id="inputModalSearch" name="q" placeholder="Search ...">
+                    <button type="submit" class="input-group-text bg-success text-light">
+                        <i class="fa fa-fw fa-search text-white"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+    <!-- Start Banner Hero -->
+    <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
+            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="1"></li>
+            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="container">
+                    <div class="row p-5">
+                        <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                            <img class="img-fluid" src="~/Themes/TNZen/Content/assets/img/TowzinNegar.jpg" alt="">
+                        </div>
+                        <div class="col-lg-6 mb-0 d-flex align-items-center">
+                            <div class="text-align-left align-self-center">
+                                <h1 class="h2 text-success">نرم افزار باسکول <b> توزین نگار </b></h1>
+                                <h3 class="h2">Towzin Negar Scale PC Software</h3>
+
+                                <p>اتوماسیون سیستم ها توزین جاده ای</p>
+                                <p>دریافت وزن از نشاندهنده بدون دخالت کاربر</p>
+                                <p> قابلیت اتصال به کلیه نشاندهنده های توزین موجود در بازار</p>
+                                <p>گزارش گیری متنوع بهمراه خروجی اکسل و پی دی اف</p>
+                                <p>MicroSoft DotNet Frame Work</p>
+                                <p>دیتابیس پر قدرت اس کیو ال سرور</p>
+                                <p>نصب شده در کلیه نقاط ایران بهمراه خدمات 24 ساعته</p>                          
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="container">
+                    <div class="row p-5">
+                        <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                            <img class="img-fluid" src="~/Themes/TNZen/Content/assets/img/T1-Thermal-Printer.jpg" alt="">
+                        </div>
+                        <div class="col-lg-6 mb-0 d-flex align-items-center">
+                            <div class="text-align-left">
+                                <h1 class="h2">نمایشگر تی وان بهمراه پرینتر حرارتی</h1>
+                                <h3 class="h2">Keli XK3118 T1-LED with Thermal Printer</h3>
+
+                                <p>پرینتر حرارتی</p>
+                                <p> تاریخ و ساعت فارسی</p>
+                                <p>قابلیت چاپ بارکد و کیو آر کد</p>
+                                <p>با صفحه نمایش نورانی</p>
+                                <p>قابلیت تغذیه حداکثر ۴ لودسل ۳۵۰ اهمی</p>
+                                <p>تبدیل آنالوگ به دیجیتال ۲۰ بیتی</p>
+                                <p></p>
+                                <p></p>
+                                <p></p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="container">
+                    <div class="row p-5">
+                        <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                            <img class="img-fluid" src="~/Themes/TNZen/Content/assets/img/T1-Lable-Printer.jpg" alt="">
+                        </div>
+                        <div class="col-lg-6 mb-0 d-flex align-items-center">
+                            <div class="text-align-left">
+                                <h1 class="h2">نمایشگر تی وان بهمراه لیبل پرینتر</h1>
+                                <h3 class="h2">Keli XK3118 T1-LED with Lable Printer</h3>
+                                
+                                <p>باسکولت لیبل پرینتر</p>
+                                <p>پرینتر لیبل زن</p>
+                                <p> تاریخ و ساعت فارسی</p>
+                                <p>طراحی لیبل به درخواست مشتری</p>
+                                <p>به مشتریان کمک کنید دقیقاً آنچه دریافت می کنند را مشاهده کنند</p>
+                                <p></p>
+                                <p></p>
+                                <p></p>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev text-decoration-none w-auto ps-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="prev">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+        <a class="carousel-control-next text-decoration-none w-auto pe-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="next">
+            <i class="fas fa-chevron-right"></i>
+        </a>
+    </div>
+    <!-- End Banner Hero -->
+    <!-- Start Categories of The Month -->
+    <section class="container py-5">
+        <div class="row text-center pt-3">
+            <div class="col-lg-6 m-auto">
+                <h1 class="h1">مجموعه های محبوب</h1>
+               @* <p>
+                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                    deserunt mollit anim id est laborum.
+                </p>*@
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-4 p-5 mt-3">
+                <a href="#"><img src="~/Themes/TNZen/Content/assets/img/TowzinNegar2.jpg" class="rounded-circle img-fluid border"></a>
+                <h5 class="text-center mt-3 mb-3">نرم افزار باسکول</h5>
+                <p class="text-center"><a  href="https://www.towzinnegar.ir/%d8%aa%d9%88%d8%b2%db%8c%d9%86-%d9%86%da%af%d8%a7%d8%b1/" class="btn btn-success">توضیحات</a></p>
+            </div>
+            <div class="col-12 col-md-4 p-5 mt-3">
+                <a href="#"><img src="~/Themes/TNZen/Content/assets/img/keli-zskbc.jpg" class="rounded-circle img-fluid border"></a>
+                <h2 class="h5 text-center mt-3 mb-3">فروشگاه تجهیزات توزین</h2>
+                <p class="text-center"><a target="_blank" href="https://store.towzinnegar.ir/" class="btn btn-success">توضیحات</a></p>
+            </div>
+            <div class="col-12 col-md-4 p-5 mt-3">
+                <a href="#"><img src="~/Themes/TNZen/Content/assets/img/WebApp.png" class="rounded-circle img-fluid border"></a>
+                <h2 class="h5 text-center mt-3 mb-3">نرم افزار باسکول تحت وب</h2>
+                <p class="text-center"><a target="_blank" href="https://app.towzinnegar.ir/" class="btn btn-success">توضیحات</a></p>
+            </div>
+        </div>
+    </section>
+    <!-- End Categories of The Month -->
+
+
+
+
+    <section class="bg-light">
+        <div class="container py-5">
+            <div class="row text-center py-3">
+                <div class="col-lg-6 m-auto">
+                   @* <h1 class="h1">Featured Product</h1>
+                    <p>
+                        Reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                        Excepteur sint occaecat cupidatat non proident.
+                    </p>*@
+                </div>
+            </div>
+            <div class="row">
+
+
+
+                @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomepageBeforeProducts })
+                @await Component.InvokeAsync("HomepageProducts")
+
+
+               
+
+
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Start Script -->
+    <script src="~/Themes/TNZen/Content/assets/js/jquery-1.11.0.min.js"></script>
+    <script src="~/Themes/TNZen/Content/assets/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="~/Themes/TNZen/Content/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Themes/TNZen/Content/assets/js/templatemo.js"></script>
+    <script src="~/Themes/TNZen/Content/assets/js/custom.js"></script>
+    <!-- End Script -->
+
+
+
+
+
+
+
+
+
+</div>
