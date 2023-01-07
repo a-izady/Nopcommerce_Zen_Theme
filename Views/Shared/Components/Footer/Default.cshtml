@@ -1,0 +1,278 @@
+﻿@model FooterModel
+
+@using Nop.Core
+@using Nop.Core.Domain.Tax
+
+@inject IWorkContext workContext
+
+<@*div class="footer">
+    <div class="footer-upper">
+        <div class="footer-block information">
+        
+        </div>
+        <div class="footer-block customer-service">
+          
+        </div>
+        <div class="footer-block my-account">
+        
+        </div>
+        <div class="footer-block follow-us">
+            <div class="social">
+                <div class="title">
+                    <strong>@T("Footer.FollowUs")</strong>
+                </div>
+                @await Component.InvokeAsync("SocialButtons")
+            </div>
+            @await Component.InvokeAsync("NewsletterBox")
+        </div>
+    </div>
+   
+</div>
+*@
+
+
+<!-- Start Footer -->
+<footer class="bg-dark" id="tempaltemo_footer">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-4 pt-5">
+              @*  <h2 class="h2 text-success border-bottom pb-3 border-light logo">Zay Shop</h2>
+                <ul class="list-unstyled text-light footer-link-list">
+                    <li>
+                        <i class="fas fa-map-marker-alt fa-fw"></i>
+                        123 Consectetur at ligula 10660
+                    </li>
+                    <li>
+                        <i class="fa fa-phone fa-fw"></i>
+                        <a class="text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
+                    </li>
+                    <li>
+                        <i class="fa fa-envelope fa-fw"></i>
+                        <a class="text-decoration-none" href="mailto:info@company.com">info@company.com</a>
+                    </li>
+                </ul>*@
+                <div class="h2 text-light border-bottom pb-3 border-light">
+                    <strong>@T("Footer.Information")</strong>
+                </div>
+                <ul class="list">
+                    @if (Model.SitemapEnabled && Model.DisplaySitemapFooterItem)
+                    {
+                        <li><a class="text-decoration-none"   href="@Url.RouteUrl("Sitemap")">@T("Sitemap")</a></li>
+                    }
+                    @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn1).ToList())
+                    {
+                        <li><a class="text-decoration-none"  href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+                    }
+                    @if (Model.DisplayContactUsFooterItem)
+                    {
+                            <li><a class="text-decoration-none"  href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a></li>
+                    }
+                     <li>
+                        
+                        <a class="text-decoration-none" href="tel:09122076014">موبایل : 09122076014</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-4 pt-5">
+              @*  <h2 class="h2 text-light border-bottom pb-3 border-light">Products</h2>
+                <ul class="list-unstyled text-light footer-link-list">
+                    <li><a class="text-decoration-none" href="#">Luxury</a></li>
+                    <li><a class="text-decoration-none" href="#">Sport Wear</a></li>
+                    <li><a class="text-decoration-none" href="#">Men's Shoes</a></li>
+                    <li><a class="text-decoration-none" href="#">Women's Shoes</a></li>
+                    <li><a class="text-decoration-none" href="#">Popular Dress</a></li>
+                    <li><a class="text-decoration-none" href="#">Gym Accessories</a></li>
+                    <li><a class="text-decoration-none" href="#">Sport Shoes</a></li>
+                </ul>*@
+                  <div class="h2 text-light border-bottom pb-3 border-light">
+                <strong>@T("Footer.CustomerService")</strong>
+            </div>
+            <ul class="list">
+                @if (Model.SearchEnabled && Model.DisplayProductSearchFooterItem)
+                {
+                    <li><a class="text-decoration-none" href="#" href="@Url.RouteUrl("ProductSearch")">@T("Search")</a> </li>
+                }
+                @if (Model.NewsEnabled && Model.DisplayNewsFooterItem)
+                {
+                    <li><a class="text-decoration-none" href="#" href="@Url.RouteUrl("NewsArchive")">@T("News")</a></li>
+                }
+                @if (Model.BlogEnabled && Model.DisplayBlogFooterItem)
+                {
+                    <li><a class="text-decoration-none" href="#" href="@Url.RouteUrl("Blog")">@T("Blog")</a></li>
+                }
+                @if (Model.ForumEnabled && Model.DisplayForumsFooterItem)
+                {
+                    <li><a class="text-decoration-none" href="#" href="@Url.RouteUrl("Boards")">@T("Forum.Forums")</a></li>
+                }
+                @if (Model.RecentlyViewedProductsEnabled && Model.DisplayRecentlyViewedProductsFooterItem)
+                {
+                        <li><a class="text-decoration-none" href="#" href="@Url.RouteUrl("RecentlyViewedProducts")">@T("Products.RecentlyViewedProducts")</a></li>
+                }
+                @if (Model.CompareProductsEnabled && Model.DisplayCompareProductsFooterItem)
+                {
+                    <li><a class="text-decoration-none" href="#" href="@Url.RouteUrl("CompareProducts")">@T("Products.Compare.List")</a></li>
+                }
+                @if (Model.NewProductsEnabled && Model.DisplayNewProductsFooterItem)
+                {
+                    <li><a class="text-decoration-none" href="#" href="@Url.RouteUrl("NewProducts")">@T("Products.NewProducts")</a></li>
+                }
+                @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn2).ToList())
+                {
+                        <li><a class="text-decoration-none" href="#" href="@Url.RouteUrl("Topic", new {SeName = topic.SeName})">@topic.Name</a></li>
+                }
+                @if (Model.AllowCustomersToCheckGiftCardBalance)
+                {
+                    <li><a class="text-decoration-none" href="#" href="@Url.RouteUrl("CheckGiftCardBalance")">@T("CheckGiftCardBalance")</a></li>
+                }
+            </ul>
+            </div>
+
+            <div class="col-md-4 pt-5">
+              @*  <h2 class="h2 text-light border-bottom pb-3 border-light">Further Info</h2>
+                <ul class="list-unstyled text-light footer-link-list">
+                    <li><a class="text-decoration-none" href="#">Home</a></li>
+                    <li><a class="text-decoration-none" href="#">About Us</a></li>
+                    <li><a class="text-decoration-none" href="#">Shop Locations</a></li>
+                    <li><a class="text-decoration-none" href="#">FAQs</a></li>
+                    <li><a class="text-decoration-none" href="#">Contact</a></li>
+                </ul>*@
+                <div class="h2 text-light border-bottom pb-3 border-light">
+                    <strong>@T("Footer.MyAccount")</strong>
+                </div>
+                <ul class="list">
+                    @if (Model.DisplayCustomerInfoFooterItem)
+                    {
+                        <li><a class="text-decoration-none" href="@Url.RouteUrl("CustomerInfo")">@T("Account.MyAccount")</a></li>
+                    }
+                    @if (Model.DisplayCustomerOrdersFooterItem)
+                    {
+                        <li><a class="text-decoration-none" href="@Url.RouteUrl("CustomerOrders")">@T("Account.CustomerOrders")</a></li>
+                    }
+                    @if (Model.DisplayCustomerAddressesFooterItem)
+                    {
+                        <li><a class="text-decoration-none" href="@Url.RouteUrl("CustomerAddresses")">@T("Account.CustomerAddresses")</a></li>
+                    }
+                    @if (Model.ShoppingCartEnabled && Model.DisplayShoppingCartFooterItem)
+                    {
+                        <li><a class="text-decoration-none" href="@Url.RouteUrl("ShoppingCart")">@T("ShoppingCart")</a></li>
+                    }
+                    @if (Model.WishlistEnabled && Model.DisplayWishlistFooterItem)
+                    {
+                        <li><a class="text-decoration-none" href="@Url.RouteUrl("Wishlist")">@T("Wishlist")</a></li>
+                    }
+                    @if (Model.AllowCustomersToApplyForVendorAccount && Model.DisplayApplyVendorAccountFooterItem)
+                    {
+                        <li><a class="text-decoration-none" href="@Url.RouteUrl("ApplyVendorAccount")">@T("Vendors.ApplyAccount")</a></li>
+                    }
+                    @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn3).ToList())
+                    {
+                        <li><a class="text-decoration-none" href="@Url.RouteUrl("Topic", new {SeName = topic.SeName})">@topic.Name</a></li>
+                    }
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="row text-light mb-4">
+            <div class="col-12 mb-3">
+                <div class="w-100 my-3 border-top border-light"></div>
+            </div>
+            <div class="col-auto me-auto">
+                <ul class="list-inline text-left footer-icons">
+                    <li class="list-inline-item border border-light rounded-circle text-center">
+                        <a class="text-light text-decoration-none" target="_blank" href="http://facebook.com/"><i class="fab fa-facebook-f fa-lg fa-fw"></i></a>
+                    </li>
+                    <li class="list-inline-item border border-light rounded-circle text-center">
+                        <a class="text-light text-decoration-none" target="_blank" href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg fa-fw"></i></a>
+                    </li>
+                    <li class="list-inline-item border border-light rounded-circle text-center">
+                        <a class="text-light text-decoration-none" target="_blank" href="https://twitter.com/"><i class="fab fa-twitter fa-lg fa-fw"></i></a>
+                    </li>
+                    <li class="list-inline-item border border-light rounded-circle text-center">
+                        <a class="text-light text-decoration-none" target="_blank" href="https://www.linkedin.com/"><i class="fab fa-linkedin fa-lg fa-fw"></i></a>
+                    </li>
+                </ul>
+          @*      <div class="footer-block follow-us">
+                    <div class="social">
+                        <div class="title">
+                            <strong>@T("Footer.FollowUs")</strong>
+                        </div>
+                        @await Component.InvokeAsync("SocialButtons")
+                    </div>
+                   
+                </div>*@
+            </div>
+            <div class="col-auto">
+                <label class="sr-only" for="subscribeEmail">Email address</label>
+                <div class="input-group mb-2">
+                   @* <input type="text" class="form-control bg-dark border-light" id="subscribeEmail" placeholder="Email address">
+                    <div class="input-group-text btn-success text-light">Subscribe</div>*@
+                     @await Component.InvokeAsync("NewsletterBox")
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-100 bg-black py-3">
+        <div class="container">
+            <div class="row pt-2">
+                <div class="col-12">
+        @*            <p class="text-left text-light">
+                        Copyright &copy; 2021 Company Name
+                        | Designed by <a rel="sponsored" href="https://templatemo.com" target="_blank">TemplateMo</a>
+                    </p>*@
+                    <span class="text-left text-light">@T("Content.CopyrightNotice", DateTime.Now.Year, Model.StoreName)</span>
+                    @if (Model.DisplayTaxShippingInfoFooter)
+                    {
+                        var inclTax = await workContext.GetTaxDisplayTypeAsync() == TaxDisplayType.IncludingTax;
+                        <p class="text-left text-light">
+                            @T(inclTax ? "Footer.TaxShipping.InclTax" : "Footer.TaxShipping.ExclTax", Url.RouteUrl("Topic", new { SeName = await Html.GetTopicSeNameAsync("shippinginfo") }))
+                        </p>
+                    }
+                    @await Component.InvokeAsync("StoreThemeSelector")
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.Footer, additionalData = Model })
+
+</footer>
+<!-- End Footer -->
+
+
+
+<script asp-location="Footer">
+    $(document).ready(function () {
+        $('.footer-block .title').on('click', function () {
+            var e = window, a = 'inner';
+            if (!('innerWidth' in window)) {
+                a = 'client';
+                e = document.documentElement || document.body;
+            }
+            var result = { width: e[a + 'Width'], height: e[a + 'Height'] };
+            if (result.width < 769) {
+                $(this).siblings('.list').slideToggle('slow');
+            }
+        });
+    });
+</script>
+<script asp-location="Footer">
+    $(document).ready(function () {
+        $('.block .title').on('click', function () {
+            var e = window, a = 'inner';
+            if (!('innerWidth' in window)) {
+                a = 'client';
+                e = document.documentElement || document.body;
+            }
+            var result = { width: e[a + 'Width'], height: e[a + 'Height'] };
+            if (result.width < 1001) {
+                $(this).siblings('.listbox').slideToggle('slow');
+            }
+        });
+    });
+</script>

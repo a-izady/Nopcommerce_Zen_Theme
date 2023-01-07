@@ -1,0 +1,260 @@
+﻿@model TopMenuModel
+
+@functions {
+    async Task CategoryLine(TopMenuModel.CategoryLineModel lineModel)
+    {
+        <li class="nav-item">
+            <a class="dropdown-item" href="@Url.RouteUrl("Category", new { SeName = lineModel.Category.SeName })">
+                @lineModel.Category.Name
+                @if (lineModel.Category.NumberOfProducts.HasValue)
+                {
+                    <text> </text>
+
+                    @T("Categories.TotalProducts", lineModel.Category.NumberOfProducts.Value)
+                }
+            </a>
+            @{
+                //subcategories
+                var subCategories = lineModel.ResponsiveMobileMenu ?
+                //responsive (all categories)
+                lineModel.Category.SubCategories :
+                //standard design (only categories with "IncludeInTopMenu")
+                lineModel.Category.SubCategories.Where(x => x.IncludeInTopMenu).ToList();
+
+                var levelClass = "";
+                if (lineModel.Level == 0)
+                {
+                    levelClass = "first-level";
+                }
+                if (subCategories.Count > 0)
+                {
+                    <div class="sublist-toggle"></div>
+                    <ul class="sublist @levelClass">
+                        @foreach (var subCategory in subCategories)
+                        {
+                            var categoryLineModel = new TopMenuModel.CategoryLineModel
+                    {
+                        Category = subCategory,
+                        Level = lineModel.Level + 1,
+                        ResponsiveMobileMenu = lineModel.ResponsiveMobileMenu
+                    };
+                            await CategoryLine(categoryLineModel);
+                        }
+                    </ul>
+                }
+            }
+        </li>
+    }
+}
+
+
+@{
+    var rootCategoriesResponsive = Model.Categories.ToList();
+    //name it "Categories" if we have only categories. Otherwise, "Menu"
+    var responsiveMenuTitle = Model.HasOnlyCategories ? T("Categories") : T("Menu");
+    <div class="menu-toggle">@responsiveMenuTitle</div>
+    <ul class="top-menu mobile">
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.MobHeaderMenuBefore, additionalData = Model })
+        @if (Model.DisplayHomepageMenuItem)
+        {
+            <li><a href="@Url.RouteUrl("Homepage")">@T("Homepage")</a></li>
+        }
+        @if (!Model.UseAjaxMenu)
+        {
+            @foreach (var category in rootCategoriesResponsive)
+            {
+                var categoryLineModel = new TopMenuModel.CategoryLineModel
+                    {
+                        Category = category,
+                        ResponsiveMobileMenu = true
+                    };
+                await CategoryLine(categoryLineModel);
+            }
+
+        }
+        @foreach (var topic in Model.Topics)
+        {
+            <li><a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+        }
+        @if (Model.NewProductsEnabled && Model.DisplayNewProductsMenuItem)
+        {
+            <li><a href="@Url.RouteUrl("NewProducts")">@T("Products.NewProducts")</a></li>
+        }
+        @if (Model.DisplayProductSearchMenuItem)
+        {
+            <li><a href="@Url.RouteUrl("ProductSearch")">@T("Search")</a></li>
+        }
+        @if (Model.DisplayCustomerInfoMenuItem)
+        {
+            <li><a href="@Url.RouteUrl("CustomerInfo")">@T("Account.MyAccount")</a></li>
+        }
+        @if (Model.BlogEnabled && Model.DisplayBlogMenuItem)
+        {
+            <li><a href="@Url.RouteUrl("Blog")">@T("Blog")</a></li>
+        }
+        @if (Model.ForumEnabled && Model.DisplayForumsMenuItem)
+        {
+            <li><a href="@Url.RouteUrl("Boards")">@T("Forum.Forums")</a></li>
+        }
+        @if (Model.DisplayContactUsMenuItem)
+        {
+            <li><a href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a></li>
+        }
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.MobHeaderMenuAfter, additionalData = Model })
+    </ul>
+
+
+
+            // <!-- Start Top Nav -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
+        <div class="container text-light">
+            <div class="w-100 d-flex justify-content-between">
+                <div>
+                    <i class="fa fa-envelope mx-2"></i>
+                    <a class="navbar-sm-brand text-light text-decoration-none">info(a)towzingnegar.ir</a>
+                    <i class="fa fa-phone mx-2"></i>
+                    <a class="navbar-sm-brand text-light text-decoration-none">09122076014</a>
+                </div>
+                <div>
+                    <a class="text-light" href="https://fb.com/templatemo" target="_blank" rel="sponsored"><i class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
+                    <a class="text-light" href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram fa-sm fa-fw me-2"></i></a>
+                    <a class="text-light" href="https://twitter.com/" target="_blank"><i class="fab fa-twitter fa-sm fa-fw me-2"></i></a>
+                    <a class="text-light" href="https://www.linkedin.com/" target="_blank"><i class="fab fa-linkedin fa-sm fa-fw"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    // <!-- Close Top Nav -->
+
+
+    //<!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-light shadow">
+        <div class="container d-flex justify-content-between align-items-center">
+
+            <a class="navbar-brand text-success logo h3 align-self-center" href="@Url.RouteUrl("Homepage")">
+                <img src="..\themes\tnzen\content\assets\img\logo.jpg" alt="توزین نگار" style="width:40px;" class="rounded-pill" />
+                توزین نگار
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+                <div class="flex-fill">
+                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+
+                        <li class="nav-item"><a class="dropdown-item" href="@Url.RouteUrl("Homepage")">@T("Homepage")</a></li>
+                        @if (!Model.UseAjaxMenu)
+                        {
+                            @foreach (var category in rootCategoriesResponsive)
+                            {
+                                var categoryLineModel = new TopMenuModel.CategoryLineModel
+                    {
+                        Category = category,
+                        ResponsiveMobileMenu = true
+                    };
+                                await CategoryLine(categoryLineModel);
+                            }
+
+                        }
+
+                        @foreach (var topic in Model.Topics)
+                        {
+                            <li class="nav-item"><a class="dropdown-item" href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+                        }
+                        @if (Model.NewProductsEnabled && Model.DisplayNewProductsMenuItem)
+                        {
+                            <li class="nav-item"><a class="dropdown-item" href="@Url.RouteUrl("NewProducts")">@T("Products.NewProducts")</a></li>
+                        }
+                        @if (Model.DisplayProductSearchMenuItem)
+                        {
+                            <li class="nav-item"><a class="dropdown-item" href="@Url.RouteUrl("ProductSearch")">@T("Search")</a></li>
+                        }
+                        @if (Model.DisplayCustomerInfoMenuItem)
+                        {
+                            <li class="nav-item"><a class="dropdown-item" href="@Url.RouteUrl("CustomerInfo")">@T("Account.MyAccount")</a></li>
+                        }
+                        @if (Model.BlogEnabled && Model.DisplayBlogMenuItem)
+                        {
+                            <li class="nav-item"><a class="dropdown-item" href="@Url.RouteUrl("Blog")">@T("Blog")</a></li>
+                        }
+                        @if (Model.ForumEnabled && Model.DisplayForumsMenuItem)
+                        {
+                            <li class="nav-item"><a class="dropdown-item" href="@Url.RouteUrl("Boards")">@T("Forum.Forums")</a></li>
+                        }
+                        @if (Model.DisplayContactUsMenuItem)
+                        {
+                            <li class="nav-item"><a class="dropdown-item" href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a></li>
+                        }
+                        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.MobHeaderMenuAfter, additionalData = Model })
+
+                    </ul>
+                </div>
+                <div class="navbar align-self-center d-flex">
+                    <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="inputMobileSearch" placeholder="Search ...">
+                            <div class="input-group-text">
+                                <i class="fa fa-fw fa-search"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="nav-icon d-none d-lg-inline" href="@Url.RouteUrl("ProductSearch")">
+                        <i class="fa fa-fw fa-search text-dark mr-2"></i>
+                    </a>
+                    <a class="nav-icon position-relative text-decoration-none" href="@Url.RouteUrl("ShoppingCart")">
+                        <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
+
+                    </a>
+                    <a class="nav-icon position-relative text-decoration-none" href="@Url.RouteUrl("CustomerInfo")">
+                        <i class="fa fa-fw fa-user text-dark mr-3"></i>
+
+                    </a>
+                    <a class="nav-icon position-relative text-decoration-none" href="@Url.RouteUrl("Logout")">
+                        <i class="fa fa-fw fa-power-off text-dark mr-3"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+            //<!-- Close Header -->
+
+
+
+
+
+    @if (Model.UseAjaxMenu)
+    {
+        <script asp-location="Footer">
+            $(document).ready(function () {
+                $('.menu-toggle').on('click', function () {
+                    $(this).siblings('.top-menu.mobile').slideToggle('slow');
+                });
+                var localized_data = {
+                    AjaxFailure: "@T("MainMenu.AjaxFailure")"
+                };
+                mainMenu.init('@Url.RouteUrl("GetCatalogRoot")', '@Url.RouteUrl("GetCatalogSubCategories")', 'ul.top-menu.notmobile', 'ul.top-menu.mobile', localized_data);
+            });
+        </script>
+
+        <script src="~/js/public.menu.js" asp-location="Footer"></script>
+
+    }
+    else
+    {
+        <script asp-location="Footer">
+            $(document).ready(function () {
+                $('.menu-toggle').on('click', function () {
+                    $(this).siblings('.top-menu.mobile').slideToggle('slow');
+                });
+                $('.top-menu.mobile .sublist-toggle').on('click', function () {
+                    $(this).siblings('.sublist').slideToggle('slow');
+                });
+            });
+        </script>
+
+    }
+
+}
