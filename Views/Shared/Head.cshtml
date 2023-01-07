@@ -1,0 +1,36 @@
+﻿@using Nop.Core
+@using Nop.Services.Helpers
+@using Nop.Web.Framework.UI
+@inject IThemeContext themeContext
+@inject IUserAgentHelper userAgentHelper
+@{
+    Layout ="";
+    var themeName = await themeContext.GetWorkingThemeNameAsync();
+    var supportRtl = await Html.ShouldUseRtlThemeAsync();
+
+    //add main CSS file
+    NopHtml.AppendCssFileParts($"~/Themes/{themeName}/Content/css/styles{(supportRtl ? ".rtl" : "")}.css");
+
+    //add jQuery UI css file
+    NopHtml.AppendCssFileParts("~/lib_npm/jquery-ui-dist/jquery-ui.min.css");
+
+
+
+
+     <title>Zay Shop eCommerce HTML CSS Template</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="assets/img/apple-icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+    <link rel="stylesheet" href="~/Themes/TNZen/Content/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Themes/TNZen/Content/assets/css/templatemo.css">
+    <link rel="stylesheet" href="~/Themes/TNZen/Content/assets/css/custom.css">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap" rel="stylesheet"></link>
+    <link rel="stylesheet" href="~/Themes/TNZen/Content/assets/css/fontawesome.min.css">
+
+
+}
