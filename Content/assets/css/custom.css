@@ -1,0 +1,25 @@
+/*
+Custom Css
+*/
+
+
+.header {
+  width: 100%;
+}
+
+.header-menu{
+    width: 100%;
+    padding:0px;
+}
+
+
+.master-wrapper-content{
+    width : 100%;
+}
+
+.full-description{
+  text-align: center;
+}
+  .full-description p{
+    text-align:center;
+}
